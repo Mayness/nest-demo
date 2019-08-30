@@ -1,13 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { User } from '../../db/user/user.entity';
+import { User } from './user.entity';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 type responseUser = Promise<User[]>;
 
 @Injectable()
 export class UserService {
   constructor(
-    @Inject('UserRepositoryToken')
+    @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
   createUser(): Promise<string> {
@@ -22,8 +23,8 @@ export class UserService {
         return err;
       });
   }
-  getUser(): responseUser {
-    return this.userRepository.find();
+  getUser(where = {}): responseUser {
+    return this.userRepository.find(where);
   }
 
   async updateUser(): responseUser {

@@ -1,9 +1,12 @@
-import { Controller } from '@nestjs/common';
-import { CatsService } from './module/cats/cats.service';
+import { Controller, Post } from '@nestjs/common';
+import { AuthService } from './module/auth/auth.service';
 
-@Controller('app')
+@Controller('api')
 export class AppController {
-  constructor(private readonly catsService:CatsService) {
-    console.log(catsService.getHello());
+  constructor(private readonly authService:AuthService) {
+  }
+  @Post('login')
+  login() {
+    return this.authService.sign({ id: 123 })
   }
 }

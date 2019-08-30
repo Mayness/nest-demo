@@ -1,12 +1,15 @@
-FROM mayness/node_server
+FROM registry.cn-hangzhou.aliyuncs.com/dmy_mirror/node_server:4
 
 COPY dist /project/dist
+COPY .env /project/.env
 COPY package.json /project/package.json
 
 EXPOSE 3000
 
 WORKDIR /project/
 
-RUN npm install --production
+ENV NODE_ENV production
 
-RUN npm run start:prod
+RUN cnpm install --production
+
+CMD ["pm2-runtime"]

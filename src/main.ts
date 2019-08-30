@@ -3,7 +3,6 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as helmet from 'helmet';
-import * as csurf from 'csurf';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,15 +10,15 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('api example')
     .setVersion('1.0')
+    .addBearerAuth('token')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
+  // 设置全局校验参数过滤
   app.useGlobalPipes(new ValidationPipe({ validationError: { target: false } }));
   // 安全策略、禁用客户端缓存、xss字段过滤
   app.use(helmet());
-  // 防止csrf攻击
-  app.use(csurf());
   await app.listen(3000);
 
 }
