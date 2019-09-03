@@ -13,4 +13,4 @@ ENV NODE_ENV production
 
 RUN cnpm install --production
 
-CMD ["pm2-runtime", "start", "startup.js"]
+CMD pm2-runtime start startup.js
