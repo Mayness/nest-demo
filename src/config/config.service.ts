@@ -16,6 +16,6 @@ export class ConfigService {
   }
 
   get(key: string): string {
-    return this.envConfig[key] || defaultEnv[key];
+    return this.envConfig[key] || process.env[key] || defaultEnv[key];
   }
 }
