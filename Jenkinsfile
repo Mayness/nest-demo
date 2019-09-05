@@ -16,11 +16,16 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent any
+            agent {
+                node {
+                    checkout scm
+                }
+            }
             steps {
                 sh '''
                     ls
-                    docker -v
+                    docker build -t registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo .
+                    docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
                 '''
             }
         }
