@@ -1,9 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:8.16.1-jessie' 
+        }
+    }
     stages {
         stage('Build') { 
             steps {
-                sh 'docker build -t mayness/test .'
+                sh '''
+                    node -v
+                    npm -v
+                '''
             }
         }
     }
