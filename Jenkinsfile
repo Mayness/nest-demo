@@ -5,18 +5,12 @@ pipeline {
         }
     }
     stages {
-        stage('Initialize') {
+        stage('Build') {
             steps {
                 sh '''
                     node -v
                     npm -v
                     alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
-                '''
-            }
-        }
-        stage('Build') {
-            steps {
-                sh '''
                     cnpm i
                     npm run build
                 '''
