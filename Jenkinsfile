@@ -10,10 +10,7 @@ pipeline {
                 sh '''
                     node -v
                     npm -v
-                    echo '\n#alias for cnpm\nalias cnpm="npm --registry=https://registry.npm.taobao.org \
-                        --cache=$HOME/.npm/.cache/cnpm \
-                        --disturl=https://npm.taobao.org/dist \
-                        --userconfig=$HOME/.cnpmrc"' >> ~/.zshrc && source ~/.zshrc
+                    alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
                     cnpm i
                 '''
             }
