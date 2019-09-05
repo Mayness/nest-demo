@@ -16,11 +16,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent {
-                node {
-                    checkout scm
-                }
-            }
+            agent any
             steps {
                 sh '''
                     ls
