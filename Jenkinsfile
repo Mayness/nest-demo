@@ -16,9 +16,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent {
-                label 'aliDocker'
-            }
+            agent any
             steps {
                 sh '''
                     ls
