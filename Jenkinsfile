@@ -7,8 +7,8 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'docker -v'
-                sh 'docker info' 
+                def app = docker.build('mayness/test');
+                app.push('latest');
             }
         }
     }
