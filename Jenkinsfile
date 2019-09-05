@@ -2,17 +2,27 @@ pipeline {
     agent any
     stages {
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:8.16.1-buster' 
+                }
+            }
             steps {
                 sh '''
-                    docker build -t registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo .
+                    node -v
+                    npm -v
+                    npm i   
                 '''
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         sh '''
-        //         '''
-        //     }
-        // }
+        stage('Deploy') {
+            agent any
+            steps {
+                sh '''
+                    ls
+                    docker -v
+                '''
+            }
+        }
     }
 }
