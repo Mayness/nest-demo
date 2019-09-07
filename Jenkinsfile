@@ -20,11 +20,12 @@ pipeline {
             agent any
             steps {
                 sh '''
-                    ls
-                    docker build -t registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo .
-                    docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
+                    cat "$JENKINS_HOME/.project_config/docker"
                 '''
             }
         }
     }
 }
+
+                    // docker build -t registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo .
+                    // docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
