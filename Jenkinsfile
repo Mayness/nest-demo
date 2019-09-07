@@ -1,15 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:8.16.1-buster'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
     stages {
-        stage('Test') {
+        stage('Build') {
+            agent {
+                {
+                    docker {
+                        image 'node:8.16.1-buster'
+                    }
+                }
+            }
             steps {
-                sh "docker info"
-                sh "node -v"
+                sh '"
+                    node -v
+                    npm -v
+                    alias cnpm="npm --registry=https://registry.npm.taobao.org --cache=$HOME/.npm/.cache/cnpm --disturl=https://npm.taobao.org/dist --userconfig=$HOME/.cnpmrc"
+                    cnpm i
+                    npm run build
+                "'
             }
         }
     }
