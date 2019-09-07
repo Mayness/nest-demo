@@ -1,28 +1,12 @@
 pipeline {
     agent none
+    tools {
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+    }
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'node:8.16.1-buster' 
-                }
-            }
+        stage('Test') {
             steps {
-                sh '''
-                    node -v
-                    npm -v
-                    npm i   
-                '''
-            }
-        }
-        stage('Deploy') {
-            agent any
-            steps {
-                sh '''
-                    ls
-                    docker build -t registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo .
-                    docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
-                '''
+                sh "docker version"
             }
         }
     }
