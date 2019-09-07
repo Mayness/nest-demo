@@ -1,7 +1,7 @@
 pipeline {
     agent {
-        docker: {
-            image 'node:8.16.1-buster'
+        docker {
+            image 'node:8.16.1-buster' 
         }
     }
     tools {
