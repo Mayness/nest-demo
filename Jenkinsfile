@@ -1,11 +1,7 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:8.16.1-buster' 
-        }
-    }
+    agent any
     tools {
-        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker stable'
+        docker 'docker stable'
     }
     stages {
         stage('Test') {
