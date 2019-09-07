@@ -20,12 +20,11 @@ pipeline {
             agent any
             steps {
                 sh '''
-                    cat "$JENKINS_HOME/.project_config/docker"
+                    docker build . --tag registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
+                    cat "$JENKINS_HOME/.project_config/docker" | docker login -u 13438496218 --password-stdin registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
+                    docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
                 '''
             }
         }
     }
 }
-
-                    // docker build -t registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo .
-                    // docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
