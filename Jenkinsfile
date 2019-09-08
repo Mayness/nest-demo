@@ -13,13 +13,18 @@ pipeline {
                     npm -v
                     npm i   
                     npm run build
+                    npm run packageInfo | awk 'END{print}' > .packageInfo
                 '''
             }
         }
         stage('Deploy') {
+            options {
+                skipDefaultCheckout()
+            }
             steps {
                 sh '''
-                    PackageInfo=`npm run packageInfo | awk 'END{print}'`;
+                    ls
+                    PackageInfo=`cat .packageInfo`
                     ImageName="registry.cn-hangzhou.aliyuncs.com/dmy_mirror/$PackageInfo"
                     docker build . --tag $ImageName
                     cat "$JENKINS_HOME/.project_config/docker" | docker login -u 13438496218 --password-stdin $ImageName
