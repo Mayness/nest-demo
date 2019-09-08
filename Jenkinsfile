@@ -1,9 +1,6 @@
 pipeline {
     agent any
     stages {
-        environment { 
-            PACKAGENAME = 'echo '
-        }
         stage('Build') {
             agent {
                 docker {
