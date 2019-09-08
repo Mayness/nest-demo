@@ -1,6 +1,9 @@
 pipeline {
-    agent none
+    agent any
     stages {
+        environment { 
+            PACKAGENAME = 'echo '
+        }
         stage('Build') {
             agent {
                 docker {
@@ -17,12 +20,13 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent any
             steps {
                 sh '''
-                    docker build . --tag registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
-                    cat "$JENKINS_HOME/.project_config/docker" | docker login -u 13438496218 --password-stdin registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
-                    docker push registry.cn-hangzhou.aliyuncs.com/dmy_mirror/nest_demo
+                    PackageInfo=`npm run packageInfo | awk 'END{print}'`;
+                    ImageName="registry.cn-hangzhou.aliyuncs.com/dmy_mirror/$PackageInfo"
+                    docker build . --tag $ImageName
+                    cat "$JENKINS_HOME/.project_config/docker" | docker login -u 13438496218 --password-stdin $ImageName
+                    docker push $ImageName
                 '''
             }
         }
