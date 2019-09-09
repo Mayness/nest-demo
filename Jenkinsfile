@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        Project = ''
+    }
     stages {
         stage('Build') {
             agent {
@@ -8,29 +11,23 @@ pipeline {
                 }
             }
             steps {
-                sh '''
-                    node -v
-                    npm -v
-                    npm i   
-                    npm run build
-                    npm run packageInfo | awk 'END{print}' > .packageInfo
-                '''
+                script{
+                    Project=sh(script: "npm run packageInfo | awk 'END{print}'", returnStdout: true)
+                }
+                // echo "$Project"
+                // sh '''
+                //     // node -v
+                //     // npm -v
+                //     // npm i
+                //     // npm run build
+                // '''
             }
         }
-        stage('Deploy') {
-            options {
-                skipDefaultCheckout()
-            }
-            steps {
-                sh '''
-                    ls
-                    PackageInfo=`cat .packageInfo`
-                    ImageName="registry.cn-hangzhou.aliyuncs.com/dmy_mirror/$PackageInfo"
-                    docker build . --tag $ImageName
-                    cat "$JENKINS_HOME/.project_config/docker" | docker login -u 13438496218 --password-stdin $ImageName
-                    docker push $ImageName
-                '''
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'ImageName="registry.cn-hangzhou.aliyuncs.com/dmy_mirror/"'+Project
+        //         echo 'ImageName'
+        //     }
+        // }
     }
 }
