@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        def Project = ''
+        def PackageInfo = ''
     }
     stages {
         stage('Build') {
@@ -12,22 +12,26 @@ pipeline {
             }
             steps {
                 script{
-                    Project=sh(script: "npm run packageInfo | awk 'END{print}'", returnStdout: true)
+                    PackageInfo = sh(script: "npm run packageInfo | awk 'END{print}'", returnStdout: true)
                 }
-                // echo "$Project"
-                // sh '''
-                //     // node -v
-                //     // npm -v
-                //     // npm i
-                //     // npm run build
-                // '''
+                sh '''
+                    node -v
+                    npm -v
+                '''
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'ImageName="registry.cn-hangzhou.aliyuncs.com/dmy_mirror/"'+Project
-        //         echo 'ImageName'
-        //     }
-        // }
+        stage('Deploy') {
+            options {
+                skipDefaultCheckout()
+            }
+            steps {
+                sh 'ls'
+                script {
+                    def ImageName = "registry.cn-hangzhou.aliyuncs.com/dmy_mirror/${PackageInfo}"
+                    def Image = docker.build(ImageName)
+                    Image.push()
+                }
+            }
+        }
     }
 }
