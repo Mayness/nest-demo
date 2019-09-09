@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        Project = ''
+        def Project = ''
     }
     stages {
         stage('Build') {
