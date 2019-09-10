@@ -39,6 +39,17 @@ pipeline {
                 sh "cat ${JENKINS_HOME}/.project_config/docker | docker login -u 13438496218 --password-stdin ${ImageName}"
                 sh "docker push ${ImageName}"
             }
+            post { 
+                success { 
+                    echo "SUCCESS! \n ${ImageName}"
+                    echo ""
+                }
+            }
+        }
+    }
+    post {
+        failure {
+            echo "FAILED!"
         }
     }
 }
