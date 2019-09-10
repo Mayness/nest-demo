@@ -42,7 +42,6 @@ pipeline {
             post { 
                 success { 
                     echo "SUCCESS! \n ${ImageName}"
-                    echo ""
                 }
             }
         }
