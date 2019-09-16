@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,9 +11,9 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-  createUser(): Promise<string> {
+  createUser(name: string): Promise<string> {
     const user = new User();
-    user.name = 'dmy';
+    user.name = name;
     return this.userRepository
       .save(user)
       .then(res => {
@@ -27,18 +27,16 @@ export class UserService {
     return this.userRepository.find(where);
   }
 
-  async updateUser(): responseUser {
+  async updateUser({ id, name }): responseUser {
     const data = await this.userRepository.find();
-    for (let item of data) {
-      item.name = 'xiaoming';
-    }
+    data.forEach(item => {
+      if (item.id === id) item.name = name;
+    })
     return this.userRepository.save(data);
   }
 
-  async deleteUser(): responseUser {
-    const data = await this.userRepository.find({
-      name: 'xiaoming'
-    });
+  async deleteUser(id: number): responseUser {
+    const data = await this.userRepository.findByIds([ id ]);
     return this.userRepository.remove(data);
   }
 }

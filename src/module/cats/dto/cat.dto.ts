@@ -7,5 +7,5 @@ export class postDto {
   readonly a: string;
 
   @IsEmail()
-  readonly c: string;
+  readonly b: string;
 }

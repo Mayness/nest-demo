@@ -10,6 +10,7 @@ export class AuthGuard implements CanActivate{ // 实现CanActive接口
     context: ExecutionContext,
   ): boolean {
     const req = context.switchToHttp().getRequest();
+    console.log(context.switchToHttp());
     if (req.path === '/api/login') return true;
     const token = req.headers.token;
     try {

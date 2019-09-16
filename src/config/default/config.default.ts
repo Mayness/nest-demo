@@ -1,6 +1,8 @@
 export default {
-  MYSQL_HOST: '127.0.0.1',
-  MYSQL_PORT: '3306',
-  MYSQL_USERNAME: 'root',
-  MYSQL_PASSWORD:'12345678',
+  mysql: {
+    host: '127.0.0.1',
+    port: '3306',
+    username: 'root',
+    password: '12345678',
+  }
 }

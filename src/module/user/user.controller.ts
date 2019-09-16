@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Query, Body, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -9,24 +9,30 @@ export class UserController {
 
 
   @Get('find')
-  find(): Promise<User[]> {
-    return this.userService.getUser();
+  find(@Query() where): Promise<User[]> {
+    return this.userService.getUser(where);
+  }
+
+  @Get('findById')
+  findById(@Query('id') id): Promise<User[]> {
+    return this.userService.getUser({ id });
   }
 
   @Post('create') 
-  create(): Promise<string> {
-    return this.userService.createUser();
+  create(@Body() params): Promise<string> {
+    if (!params.name) throw new NotFoundException();
+    return this.userService.createUser(params.name);
   }
 
   @Put('update')
-  async update(): Promise<string> {
-    await this.userService.updateUser();
+  async update(@Body() { id, name }): Promise<string> {
+    await this.userService.updateUser({ id, name });
     return '修改成功'
   }
 
   @Delete('delete')
-  async delete(): Promise<string> {
-    await this.userService.deleteUser();
+  async delete(@Body('id') id: number) {
+    await this.userService.deleteUser(id);
     return '删除成功'
   }
 }

@@ -1,5 +1,6 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 
 import { CatsModule } from './module/cats/cats.module';
@@ -22,18 +23,26 @@ import { join } from 'path';
     CatsModule,
     UserModule,
     AuthModule,
+    GraphQLModule.forRoot({
+      debug: false,
+      typePaths: ['./**/*.graphql'],
+      autoSchemaFile: process.env.NODE_ENV === 'production' ? false : 'schema.gql',
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ ConfigModule ],
-      useFactory: (config: ConfigService) => ({
-        type: 'mysql',
-        host: config.get('MYSQL_HOST'),
-        port: Number(config.get('MYSQL_PORT')),
-        username: config.get('MYSQL_USERNAME'),
-        password: config.get('MYSQL_PASSWORD'),
-        database: 'test',
-        entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-        synchronize: true,
-      }),
+      useFactory: (config: ConfigService) => {
+        const mysqlConfig = config.get('mysql');
+        return {
+          type: 'mysql',
+          host: mysqlConfig.host,
+          port: Number(mysqlConfig.port),
+          username: mysqlConfig.username,
+          password: mysqlConfig.password,
+          database: 'test',
+          entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+          synchronize: true,
+        }
+      },
       inject: [ ConfigService ],
     })
   ],

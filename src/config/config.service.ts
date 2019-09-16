@@ -1,21 +1,18 @@
 import defaultEnv from './default/config.default';
-import * as path from 'path';
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
+import ProEnv from './default/config.production';
 
-type envObject = { [key: string]: string }
+type envObject = { [key: string]: any }
 export class ConfigService {
   private readonly envConfig: envObject;
-  constructor(filePath: string) {
+  constructor() {
+    const node_env = process.env.NODE_ENV;
     this.envConfig = {};
-    try {
-      const envPath = path.join(__dirname, '../../.env/', filePath);
-      this.envConfig = dotenv.parse(fs.readFileSync(envPath));
-    } catch {
+    if (node_env === 'production') {
+      this.envConfig = ProEnv;
     }
   }
 
-  get(key: string): string {
-    return this.envConfig[key] || process.env[key] || defaultEnv[key];
+  get(key: string): any {
+    return this.envConfig[key] || defaultEnv[key];
   }
 }
