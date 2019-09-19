@@ -12,7 +12,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('api example')
     .setVersion('1.0')
-    .addBearerAuth('token')
+    .addBearerAuth('token', 'header', )
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

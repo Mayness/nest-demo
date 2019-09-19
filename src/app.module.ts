@@ -3,6 +3,8 @@ import { APP_INTERCEPTOR, APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 
+import { ApiBearerAuth } from '@nestjs/swagger';
+
 import { CatsModule } from './module/cats/cats.module';
 import { UserModule } from './module/user/user.module';
 import { AuthModule } from './module/auth/auth.module';

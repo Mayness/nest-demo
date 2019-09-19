@@ -1,4 +1,4 @@
-import { Injectable, CanActivate, ExecutionContext, Logger, UnauthorizedException } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, Logger, UnauthorizedException,  } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthService } from '../../module/auth/auth.service';
 
@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate{ // 实现CanActive接口
     try {
       req.user = this.authService.valid(token);
     } catch(e) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(e.name);
     }
     return true;
   }
