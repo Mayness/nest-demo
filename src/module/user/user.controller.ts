@@ -14,24 +14,24 @@ export class UserController {
   }
 
   @Get('findById')
-  findById(@Query('id') id): Promise<User[]> {
-    return this.userService.getUser({ id });
+  async findById(@Query('id') id): Promise<User> {
+    const data = await this.userService.getUser({ id });
+    return data[ 0 ];
   }
 
   @Post('create') 
-  create(@Body() params): Promise<string> {
-    if (!params.name) throw new NotFoundException();
+  create(@Body() params): Promise<User> {
+    if (!params.name) throw new NotFoundException('Missing ‘name’ field');
     return this.userService.createUser(params.name);
   }
 
   @Put('update')
-  async update(@Body() { id, name }): Promise<string> {
-    await this.userService.updateUser({ id, name });
-    return '修改成功'
+  update(@Body() { id, name }): Promise<User|{}> {
+    return this.userService.updateUser({ id, name });
   }
 
   @Delete('delete')
-  async delete(@Body('id') id: number) {
+  async delete(@Body('id') id: string) {
     await this.userService.deleteUser(id);
     return '删除成功'
   }

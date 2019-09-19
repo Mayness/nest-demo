@@ -11,13 +11,14 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-  createUser(name: string): Promise<string> {
+
+  createUser(name: string): Promise<User> {
     const user = new User();
     user.name = name;
     return this.userRepository
       .save(user)
       .then(res => {
-        return '创建成功！';
+        return user;
       })
       .catch(err => {
         return err;
@@ -27,16 +28,27 @@ export class UserService {
     return this.userRepository.find(where);
   }
 
-  async updateUser({ id, name }): responseUser {
+  async updateUser({ id, name }): Promise<User|{}> {
     const data = await this.userRepository.find();
+    let res = {};
     data.forEach(item => {
-      if (item.id === id) item.name = name;
+      if (item.id === id) {
+        item.name = name;
+        res = item;
+      }
     })
-    return this.userRepository.save(data);
+    this.userRepository.save(data);
+    return res;
   }
 
-  async deleteUser(id: number): responseUser {
+  async deleteUser(id: string): Promise<User|{}> {
+    let res;
     const data = await this.userRepository.findByIds([ id ]);
-    return this.userRepository.remove(data);
+    res = Object.assign({}, data[ 0 ]);
+    if (data.length > 0) {
+      await this.userRepository.remove(data);
+      return res;
+    }
+    return {};
   }
 }

@@ -1,14 +1,44 @@
-import { Length } from 'class-validator';
+import { Length, IsOptional } from 'class-validator';
 import { ArgsType, Field, ID } from 'type-graphql';
 
 @ArgsType()
 export class UserArg {
-  @Field(type => ID)
-  id: number;
+  @IsOptional()
+  @Field(type => ID, { nullable: true })
+  id?: string;
 
-  @Field({ nullable: true })
+  @IsOptional()
   @Length(3, 10, {
     message: '字符长度应该在$constraint1-$constraint2之间'
   })
+  @Field({ nullable: true })
   name?: string;
+}
+
+
+@ArgsType()
+export class CreateUserArg {
+  @Length(3, 10, {
+    message: '字符长度应该在$constraint1-$constraint2之间'
+  })
+  @Field()
+  name: string;
+}
+
+@ArgsType()
+export class UpdateUserArg {
+  @Field()
+  id: string;
+
+  @Length(3, 10, {
+    message: '字符长度应该在$constraint1-$constraint2之间'
+  })
+  @Field()
+  name: string;
+}
+
+@ArgsType()
+export class DeleteUserArg {
+  @Field(type => ID, { nullable: true })
+  id: string;
 }

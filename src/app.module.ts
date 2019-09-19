@@ -26,6 +26,7 @@ import { join } from 'path';
     GraphQLModule.forRoot({
       debug: false,
       typePaths: ['./**/*.graphql'],
+      context: ({ req, res }) => ({ req, res }),
       autoSchemaFile: process.env.NODE_ENV === 'production' ? false : 'schema.gql',
     }),
     TypeOrmModule.forRootAsync({
