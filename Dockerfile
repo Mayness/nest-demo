@@ -2,7 +2,7 @@ FROM registry.cn-hangzhou.aliyuncs.com/dmy_mirror/node_server:4
 
 COPY dist /project/dist
 COPY package.json /project/package.json
-COPY startup.js /project/startup.js
+COPY startup.json /project/startup.json
 
 EXPOSE 3000
 
@@ -12,4 +12,4 @@ ENV NODE_ENV production
 
 RUN cnpm i --production
 
-CMD pm2-runtime start startup.js
+CMD pm2-runtime startup.json
