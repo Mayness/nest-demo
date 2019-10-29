@@ -1,12 +1,40 @@
 import { Injectable, Inject } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Cats } from './cats.entity';
+import { User } from '../user/user.entity';
+import { Repository } from 'typeorm';
+
+type catsType = {
+  name: string[],
+}
+
 @Injectable()
 export class CatsService {
   constructor(
-    @Inject('Cats') private readonly cats
+    @Inject('Cats') private readonly cats,
+    @InjectRepository(Cats) private readonly catsRepository: Repository<Cats>,
   ) {
   }
    
-  getHello(): string {
-    return JSON.stringify(this.cats);
+  getHello(): object {
+    return this.cats;
+  }
+
+  getCats(where = {}) {
+    return this.catsRepository.find({
+      where,
+      relations: [ 'owner' ]
+    });
+  }
+
+  async createCats(params: catsType) {
+    const catsRepList:Cats[] = [];
+    for (let i of params.name) {
+      const cats = new Cats();
+      cats.name = i;
+      const catsRep = await this.catsRepository.save(cats);
+      catsRepList.push(catsRep);
+    }
+    return catsRepList;
   }
 }

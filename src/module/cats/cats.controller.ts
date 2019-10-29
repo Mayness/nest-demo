@@ -11,7 +11,7 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) { // 依赖注入：CatsService，会自动挂载在当前this上
   }
   @Get('hello')
-  async getHello(@Query() getDto: GetDto): Promise<string> {
+  async getHello(@Query() getDto: GetDto): Promise<object> {
     // console.log(getDto);   // curl http://localhost:3000/cats/hello?id=1234  output: { id: '1234' } 类型是object
     // await sleep()
     return this.catsService.getHello();
@@ -37,11 +37,9 @@ export class CatsController {
   wrong () {
     throw new BadRequestException('请求失败')
   }
-}
 
-
-function sleep() {
-  return new Promise(resolve => {
-    setTimeout(resolve, 1000);
-  })
+  @Get('find')
+  getCats(@Query() where) {
+    return this.catsService.getCats(where);
+  }
 }

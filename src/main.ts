@@ -8,7 +8,7 @@ import * as path from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  // 部署swagger
   const options = new DocumentBuilder()
     .setTitle('api example')
     .setVersion('1.0')
@@ -21,12 +21,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ validationError: { target: false } }));
   // 安全策略、禁用客户端缓存、xss字段过滤
   app.use(helmet());
-
+  // 公共资源的路径
   app.use('/public', serveStatic(path.join(__dirname, '../public'), {
     maxAge: '1d'
   }));
-  await app.listen(3000);
-
+  app.listen(3000);
 }
 bootstrap();
 

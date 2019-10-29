@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
-
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Cats } from '../cats/cats.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -10,4 +10,7 @@ export class User {
 
   @CreateDateColumn()
   date: Date;
+
+  @OneToMany(type => Cats, Cats => Cats.owner)
+  cats: Cats[];
 }

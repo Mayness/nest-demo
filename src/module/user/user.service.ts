@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateUserArg } from './dto/user.arg';
+import { CatsService } from '../cats/cats.service';
 
 type responseUser = Promise<User[]>;
 
@@ -10,22 +12,23 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly catsService: CatsService
   ) {}
 
-  createUser(name: string): Promise<User> {
+  async createUser(params: CreateUserArg): Promise<User> {
+    const cats = await this.catsService.createCats({
+      name: params.cats
+    });
     const user = new User();
-    user.name = name;
-    return this.userRepository
-      .save(user)
-      .then(res => {
-        return user;
-      })
-      .catch(err => {
-        return err;
-      });
+    user.name = params.name;
+    user.cats = cats;
+    return this.userRepository.save(user)
   }
   getUser(where = {}): responseUser {
-    return this.userRepository.find(where);
+    return this.userRepository.find({
+      where,
+      relations: [ 'cats' ]
+    });
   }
 
   async updateUser({ id, name }): Promise<User|{}> {

@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Put, Delete, Query, Body, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Param, Put, Delete, Query, Body, NotFoundException } from '@nestjs/common';
+import { UserArg, CreateUserArg, UpdateUserArg, DeleteUserArg } from './dto/user.arg';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
@@ -10,20 +11,19 @@ export class UserController {
 
 
   @Get('find')
-  find(@Query() where): Promise<User[]> {
-    return this.userService.getUser(where);
+  find(@Query() Query: UserArg): Promise<User[]> {
+    return this.userService.getUser(Query);
   }
 
-  @Get('findById')
-  async findById(@Query('id') id): Promise<User> {
+  @Get('findById/:id')
+  async findById(@Param('id') id: string): Promise<User> {
     const data = await this.userService.getUser({ id });
     return data[ 0 ];
   }
 
   @Post('create') 
-  create(@Body() params): Promise<User> {
-    if (!params.name) throw new NotFoundException('Missing ‘name’ field');
-    return this.userService.createUser(params.name);
+  create(@Body() Params: CreateUserArg): Promise<User> {
+    return this.userService.createUser(Params);
   }
 
   @Put('update')
