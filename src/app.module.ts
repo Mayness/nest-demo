@@ -32,13 +32,12 @@ import { join } from 'path';
     TypeOrmModule.forRootAsync({
       imports: [ ConfigModule ],
       useFactory: (config: ConfigService) => {
-        const mysqlConfig = config.get('mysql');
         return {
           type: 'mysql',
-          host: mysqlConfig.host,
-          port: Number(mysqlConfig.port),
-          username: mysqlConfig.username,
-          password: mysqlConfig.password,
+          host: config.get('mysql.host'),
+          port: Number(config.get('mysql.port')),
+          username: config.get('mysql.username'),
+          password: config.get('mysql.password'),
           database: 'test',
           entities: [join(__dirname, '**/**.entity{.ts,.js}')],
           synchronize: true,

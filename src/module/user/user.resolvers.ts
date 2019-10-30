@@ -31,8 +31,6 @@ export class UserResolvers {
 
   @Mutation(returns => OperaUserDto)
   async deleteUser(@Args({ name: 'id', type: () => ID }) id: string): Promise<OperaUserDto> {
-    const data = await this.userService.deleteUser(id);
-    console.log(data);
-    return data;
+    return this.userService.deleteUser(id);
   }
 }
