@@ -23,7 +23,7 @@ export class CreateUserArg {
   @Field()
   name: string;
 
-  @Field(type => [String])
+  @Field(type => Array)
   @IsArray()
   @IsNotEmpty()
   cats: string[];

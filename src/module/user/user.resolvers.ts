@@ -21,7 +21,7 @@ export class UserResolvers {
 
   @Mutation(returns => UserDto)
   createUser(@Args() params: CreateUserArg): Promise<UserDto> {
-    return this.userService.createUser(params.name);
+    return this.userService.createUser(params);
   }
 
   @Mutation(returns => OperaUserDto)
