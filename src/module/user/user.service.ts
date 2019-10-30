@@ -32,10 +32,10 @@ export class UserService {
   }
 
   async updateUser({ id, name }): Promise<User|{}> {
-    const data = await this.userRepository.find();
+    const data = await this.userRepository.find({ id });
     let res = {};
     data.forEach(item => {
-      if (item.id === id) {
+      if (String(item.id) === id) {
         item.name = name;
         res = item;
       }
@@ -46,9 +46,15 @@ export class UserService {
 
   async deleteUser(id: string): Promise<User|{}> {
     let res;
-    const data = await this.userRepository.findByIds([ id ]);
+    const data = await this.userRepository.find({
+      where: {
+        id,
+      },
+      relations: [ 'cats' ]
+    });
     res = Object.assign({}, data[ 0 ]);
     if (data.length > 0) {
+      if (res.cats) await this.catsService.removeCatsByEntity(res.cats);
       await this.userRepository.remove(data);
       return res;
     }

@@ -2,7 +2,6 @@ import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
-console.log(AppController);
 
 import { CatsModule } from './module/cats/cats.module';
 import { UserModule } from './module/user/user.module';

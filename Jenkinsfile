@@ -40,7 +40,7 @@ pipeline {
                 sh "docker push ${ImageName}"
             }
             post { 
-                success { 
+                success {
                     echo "SUCCESS! \n ${ImageName}"
                 }
             }

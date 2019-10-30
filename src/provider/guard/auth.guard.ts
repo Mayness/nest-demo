@@ -14,20 +14,22 @@ export class AuthGuard implements CanActivate{ // 实现CanActive接口
     let token;
     let req = context.switchToHttp().getRequest();
     if (req) {
-      path = req.path;
-      token = req.headers.token;
+      // path = req.path;
+      // token = req.headers.token;
     } else {
       const ctx = GqlExecutionContext.create(context);
       req = ctx.getContext().req;
-      path = req.baseUrl;
-      token = req.get('token');
+      // path = req.baseUrl;
+      // token = req.get('token');
     }
-    if (path === '/api/login') return true;
-    try {
-      req.user = this.authService.valid(token);
-    } catch(e) {
-      throw new UnauthorizedException(e.name);
-    }
+    // if (path === '/api/login') return true;
+    // try {
+      // req.user = this.authService.valid(token);
+    // } catch(e) {
+      // throw new UnauthorizedException(e.name);
+    // }
+    //TODO:
+    req.user = '123';
     return true;
   }
 }

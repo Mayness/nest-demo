@@ -1,7 +1,7 @@
 import { Controller, Get, Post, HttpCode, Body, Query, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
 import { ApiBearerAuth, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { PostDto, GetDto } from './dto/cat.dto';
+import { PostDto, GetDto } from './dto/cats.dto';
 import { CatsService } from './cats.service';
 
 @ApiBearerAuth()

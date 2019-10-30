@@ -37,4 +37,8 @@ export class CatsService {
     }
     return catsRepList;
   }
+
+  async removeCatsByEntity (cats) {
+    return this.catsRepository.remove(cats);
+  }
 }

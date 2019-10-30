@@ -11,8 +11,8 @@ export class UserController {
 
 
   @Get('find')
-  find(@Query() Query: UserArg): Promise<User[]> {
-    return this.userService.getUser(Query);
+  find(@Query() query: UserArg): Promise<User[]> {
+    return this.userService.getUser(query);
   }
 
   @Get('findById/:id')

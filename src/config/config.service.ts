@@ -8,8 +8,6 @@ export class ConfigService {
     const node_env = process.env.NODE_ENV;
     this.envConfig = {};
     if (node_env === 'production') {
-      console.log(111111111111);
-      console.log(ProEnv);
       this.envConfig = ProEnv;
     }
   }

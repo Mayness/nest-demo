@@ -1,5 +1,6 @@
 import { Length, IsOptional, IsArray, IsNotEmpty } from 'class-validator';
 import { ArgsType, Field, ID } from 'type-graphql';
+import { CatsArg } from '../../cats/dto/cats.arg';
 @ArgsType()
 export class UserArg {
   @IsOptional()
@@ -23,7 +24,7 @@ export class CreateUserArg {
   @Field()
   name: string;
 
-  @Field(type => Array)
+  @Field(type => [ String ])
   @IsArray()
   @IsNotEmpty()
   cats: string[];
@@ -34,7 +35,7 @@ export class UpdateUserArg {
   @Field()
   id: string;
 
-  @Length(3, 10, {
+  @Length(2, 10, {
     message: '字符长度应该在$constraint1-$constraint2之间'
   })
   @Field()
