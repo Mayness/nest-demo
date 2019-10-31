@@ -4,10 +4,10 @@ import { ConfigService } from './config.service';
 @Module({
   providers: [ 
     {
-      provide: ConfigService,
-      useValue: new ConfigService()
+      provide: 'ConfigService',
+      useFactory: () => ConfigService.getEnvFile(process.env.NODE_ENV)
     }
   ],
-  exports: [ ConfigService ],
+  exports: [ 'ConfigService' ],
 })
 export class ConfigModule {}
