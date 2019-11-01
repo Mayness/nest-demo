@@ -17,8 +17,6 @@ pipeline {
                     echo "Package is building: ${PackageInfo}"
                 }
                 sh '''
-                    node -v
-                    npm -v
                     cnpm -v
                     cnpm i
                     npm run build

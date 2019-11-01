@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cats } from './cats.entity';
-import { User } from '../user/user.entity';
 import { Repository } from 'typeorm';
 
 type catsType = {

@@ -8,8 +8,14 @@
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "incremental": true,
+    "paths": {
+      "@provider/*": [ "src/provider/*" ],
+      "@module/*": [ "src/module/*" ],
+      "@config/*": [ "src/config/*" ],
+      "@util/*": [ "src/util/*" ]
+    },
   },
   "exclude": ["node_modules"]
 }

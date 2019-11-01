@@ -3,7 +3,7 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserArg } from './dto/user.arg';
-import { CatsService } from '../cats/cats.service';
+import { CatsService } from '@module/cats/cats.service';
 
 type responseUser = Promise<User[]>;
 

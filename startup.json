@@ -2,7 +2,7 @@
   "name": "nest-demo",
   "script": "dist/main.js",
   "exec_mode": "cluster",
-  "instances": 1,
+  "instances": "max",
   "merge_logs": true,
   "max_memory_restart": "1024M",
   "log": "myoutFile.log",

@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { User } from '../../provider/decorator/User.decorator';
+import { User } from '@provider/decorator/User.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
