@@ -1,6 +1,6 @@
 import { Length, IsOptional, IsArray, IsNotEmpty } from 'class-validator';
 import { ArgsType, Field, ID } from 'type-graphql';
-import { CatsArg } from '@module/cats/dto/cats.arg';
+// import { CatsArg } from '@module/cats/dto/cats.arg';
 @ArgsType()
 export class UserArg {
   @IsOptional()

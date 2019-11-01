@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext, Logger, UnauthorizedException,  } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthService } from '@module/auth/auth.service';
+import { AuthService } from '../../module/auth/auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate{ // 实现CanActive接口

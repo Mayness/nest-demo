@@ -9,13 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": ".",
-    "incremental": true,
-    "paths": {
-      "@provider/*": [ "src/provider/*" ],
-      "@module/*": [ "src/module/*" ],
-      "@config/*": [ "src/config/*" ],
-      "@util/*": [ "src/util/*" ]
-    },
+    "incremental": true
   },
   "exclude": ["node_modules"]
 }

@@ -3,18 +3,18 @@ import { APP_INTERCEPTOR, APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 
-import { CatsModule } from '@module/cats/cats.module';
-import { UserModule } from '@module/user/user.module';
-import { AuthModule } from '@module/auth/auth.module';
-import { ConfigModule } from '@config/config.module';
+import { CatsModule } from './module/cats/cats.module';
+import { UserModule } from './module/user/user.module';
+import { AuthModule } from './module/auth/auth.module';
+import { ConfigModule } from './config/config.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigService } from '@config/config.service';
+import { ConfigService } from './config/config.service';
 
-import { LoggerMiddleware } from '@provider/middleware/log.middleware';
-import { ResponseInterceptor } from '@provider/interceptor/response.interceptor';
-import { AnyExceptionFilter } from '@provider/filter/any-exception.filter';
-import { AuthGuard } from '@provider/guard/auth.guard';
+import { LoggerMiddleware } from './provider/middleware/log.middleware';
+import { ResponseInterceptor } from './provider/interceptor/response.interceptor';
+import { AnyExceptionFilter } from './provider/filter/any-exception.filter';
+import { AuthGuard } from './provider/guard/auth.guard';
 
 import { join } from 'path';
 
