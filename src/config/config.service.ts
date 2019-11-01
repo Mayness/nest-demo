@@ -8,10 +8,11 @@ export class ConfigService {
     this.envConfig = envObject || {};
   }
   static async getEnvFile(env?: string) {
-    let currentEnvData = {};
+    let currentEnvData = {default: {}};
     if (env) {
       try {
-        currentEnvData = await import(`./default/config.${env}`);
+        const data = await import(`./env/config.${env}`);
+        currentEnvData = data.default;
       } catch (err) {
         Logger.error(err);
       }
