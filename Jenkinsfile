@@ -22,7 +22,6 @@ pipeline {
                 sh '''
                     cnpm -v
                     cnpm i
-                    npm run test
                     npm run build
                 '''
             }
