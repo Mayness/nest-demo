@@ -18,7 +18,9 @@ describe('AppController (e2e)', () => {
     token = res.body.data;
   });
 
-
+  afterAll(() => {
+    app.close();
+  })
   it('/cats/hello (GET)', async done => {
     const res = await request(app.getHttpServer())
             .get('/cats/hello')
