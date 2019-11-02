@@ -11,7 +11,7 @@
     "start:debug": "nodemon --config nodemon-debug.json",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:cov": "jest --coverage",
     "packageInfo": "echo $npm_package_name:$npm_package_version"
   },
@@ -68,8 +68,8 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
+    "rootDir": "test",
+    "testRegex": ".e2e-spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

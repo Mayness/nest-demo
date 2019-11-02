@@ -6,6 +6,9 @@ pipeline {
     }
     stages {
         stage('Build') {
+            when {
+                branch 'master'
+            }
             agent {
                 docker {
                     image "mayness/node:2"
@@ -19,11 +22,15 @@ pipeline {
                 sh '''
                     cnpm -v
                     cnpm i
+                    npm run test
                     npm run build
                 '''
             }
         }
         stage('Deploy') {
+            when {
+                branch 'master'
+            }
             agent any
             options {
                 skipDefaultCheckout()
