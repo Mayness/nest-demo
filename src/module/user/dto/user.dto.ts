@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-
+// result
 @ObjectType()
 export class UserDto {
   @Field(type => ID)

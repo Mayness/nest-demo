@@ -1,5 +1,6 @@
 import { Length, IsEmail } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
+
 export class GetDto {
   // @ApiModelProperty({
   //   required: true,

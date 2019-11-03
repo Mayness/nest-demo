@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Param, Put, Delete, Query, Body, NotFoundException } from '@nestjs/common';
-import { UserArg, CreateUserArg, UpdateUserArg, DeleteUserArg } from './dto/user.arg';
+import { UserArg, CreateUserArg } from './dto/user.arg';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
