@@ -1,7 +1,7 @@
 import { Query, Resolver, Args, Info, Mutation } from '@nestjs/graphql';
 import { ID } from 'type-graphql';
 import { UserDto, OperaUserDto } from './dto/user.dto';
-import { UserArg, CreateUserArg, UpdateUserArg, DeleteUserArg } from './dto/user.arg';
+import { UserArg, CreateUserArg, UpdateUserArg } from './dto/user.arg';
 import { UserService } from './user.service';
 
 @Resolver(of => UserDto)

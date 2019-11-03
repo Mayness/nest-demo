@@ -1,7 +1,6 @@
-import { Field, ID, ObjectType } from 'type-graphql';
-// import { UserArg } from '../../user/dto/user.arg'
+import { Field, ID, ArgsType } from 'type-graphql';
 
-@ObjectType()
+@ArgsType()
 export class CatsArg {
   @Field(type => ID)
   id: string;
