@@ -4,12 +4,17 @@
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
     "experimentalDecorators": true,
+    "strict": true,
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": ".",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@provider/*": [ "src/provider/*" ]
+    }
   },
   "exclude": ["node_modules"]
 }

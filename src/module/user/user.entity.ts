@@ -3,14 +3,14 @@ import { Cats } from '../cats/cats.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: string;
+  id!: string;
 
   @Column({ length: 500 })
-  name: string;
+  name!: string;
 
   @CreateDateColumn()
-  date: Date;
+  date!: Date;
 
   @OneToMany(type => Cats, Cats => Cats.owner)
-  cats: Cats[];
+  cats!: Cats[];
 }

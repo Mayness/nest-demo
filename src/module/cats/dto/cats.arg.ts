@@ -3,13 +3,13 @@ import { Field, ID, ArgsType } from 'type-graphql';
 @ArgsType()
 export class CatsArg {
   @Field(type => ID)
-  id: string;
+  readonly id!: string;
 
   @Field({ nullable: true })
-  name?: string;
+  readonly name?: string;
 
   @Field({ nullable: true })
-  date?: Date;
+  readonly date?: Date;
 
   // @Field(type => UserArg, { nullable: true })
   // owner?: UserArg;

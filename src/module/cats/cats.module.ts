@@ -4,6 +4,10 @@ import { CatsService } from './cats.service';
 import { Cats } from './cats.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+export type injectCats = {
+  test: number
+}
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([ Cats ]),

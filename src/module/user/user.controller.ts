@@ -1,8 +1,11 @@
 import { Controller, Get, Post, Param, Put, Delete, Query, Body, NotFoundException } from '@nestjs/common';
-import { UserArg, CreateUserArg } from './dto/user.arg';
+import { UserArg, CreateUserArg, UpdateUserArg } from './dto/user.arg';
+import { MixinCatsOfUser } from './dto/user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
+export type responseUser = Promise<User[]>;
+export type responseMixinCatsOfUser = Promise<MixinCatsOfUser[]>;
 
 @Controller('user')
 export class UserController {
@@ -11,12 +14,12 @@ export class UserController {
 
 
   @Get('find')
-  find(@Query() query: UserArg): Promise<User[]> {
+  find(@Query() query: UserArg): responseMixinCatsOfUser {
     return this.userService.getUser(query);
   }
 
   @Get('findById/:id')
-  async findById(@Param('id') id: string): Promise<User> {
+  async findById(@Param('id') id: string): Promise<MixinCatsOfUser> {
     const data = await this.userService.getUser({ id });
     return data[ 0 ];
   }
@@ -27,7 +30,7 @@ export class UserController {
   }
 
   @Put('update')
-  update(@Body() { id, name }): Promise<User|{}> {
+  update(@Body() { id, name }: UpdateUserArg): Promise<User|{}> {
     return this.userService.updateUser({ id, name });
   }
 

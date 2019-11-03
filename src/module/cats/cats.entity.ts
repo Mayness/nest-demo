@@ -4,15 +4,15 @@ import { User } from '../user/user.entity';
 @Entity()
 export class Cats {
   @PrimaryGeneratedColumn()
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @CreateDateColumn()
-  date: Date;
+  date!: Date;
 
   @ManyToOne(type => User, User => User.cats)
   @JoinColumn()
-  owner: User;
+  owner!: User;
 }

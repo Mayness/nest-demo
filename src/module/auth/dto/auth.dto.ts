@@ -1,7 +1,7 @@
 export class AuthDto {
-  id: number
+  readonly id!: number
 }
 
 export class ChildDto {
-  children: string
+  readonly child?: string
 }
