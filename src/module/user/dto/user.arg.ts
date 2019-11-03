@@ -5,14 +5,14 @@ import { ArgsType, Field, ID } from 'type-graphql';
 export class UserArg {
   @IsOptional()
   @Field(type => ID, { nullable: true })
-  id?: string;
+  readonly id?: string;
 
   @IsOptional()
   @Length(3, 10, {
     message: '字符长度应该在$constraint1-$constraint2之间'
   })
   @Field({ nullable: true })
-  name?: string;
+  readonly name?: string;
 }
 
 
@@ -22,28 +22,28 @@ export class CreateUserArg {
     message: '字符长度应该在$constraint1-$constraint2之间'
   })
   @Field()
-  name: string;
+  readonly name!: string;
 
   @Field(type => [ String ])
   @IsArray()
   @IsNotEmpty()
-  cats: string[];
+  readonly cats!: string[];
 }
 
 @ArgsType()
 export class UpdateUserArg {
   @Field()
-  id: string;
+  readonly id!: string;
 
   @Length(2, 10, {
     message: '字符长度应该在$constraint1-$constraint2之间'
   })
   @Field()
-  name: string;
+  readonly name!: string;
 }
 
 @ArgsType()
 export class DeleteUserArg {
   @Field(type => ID, { nullable: true })
-  id: string;
+  readonly id!: string;
 }

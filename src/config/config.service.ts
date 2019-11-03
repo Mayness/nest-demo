@@ -21,9 +21,9 @@ export class ConfigService {
   }
   // key 为 xx.xx.xx
   get(key: string): any {
-    const path = key.split('.');
-    let env = this.envConfig;
-    let defaults = defaultEnv;
+    const path: string[] = key.split('.');
+    let env: envObject = this.envConfig;
+    let defaults: envObject = defaultEnv;
     for (let item of path) {
       env = env[item] || {};
       defaults = defaults[item];

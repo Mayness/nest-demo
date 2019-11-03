@@ -23,6 +23,7 @@ pipeline {
                     cnpm -v
                     cnpm i
                     npm run build
+                    tree -I node_modules
                 '''
             }
         }
@@ -38,7 +39,6 @@ pipeline {
                 script {
                     ImageName = "registry.cn-hangzhou.aliyuncs.com/dmy_mirror/${PackageInfo}"
                 }
-                sh "ls"
                 sh "docker build . -t ${ImageName}"
                 sh "cat ${JENKINS_HOME}/.project_config/docker | docker login -u 13438496218 --password-stdin ${ImageName}"
                 sh "docker push ${ImageName}"

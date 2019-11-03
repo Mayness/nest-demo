@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cats } from './cats.entity';
+import { injectCats } from './cats.module';
 import { Repository } from 'typeorm';
 
 type catsType = {
@@ -10,12 +11,12 @@ type catsType = {
 @Injectable()
 export class CatsService {
   constructor(
-    @Inject('Cats') private readonly cats,
+    @Inject('Cats') private readonly cats: injectCats,
     @InjectRepository(Cats) private readonly catsRepository: Repository<Cats>,
   ) {
   }
    
-  getHello(): object {
+  getHello(): injectCats {
     return this.cats;
   }
 
@@ -26,7 +27,7 @@ export class CatsService {
     });
   }
 
-  async createCats(params: catsType) {
+  async createCats(params: catsType):Promise<Cats[]> {
     const catsRepList:Cats[] = [];
     for (let i of params.name) {
       const cats = new Cats();
@@ -37,7 +38,7 @@ export class CatsService {
     return catsRepList;
   }
 
-  async removeCatsByEntity (cats) {
+  async removeCatsByEntity (cats: Cats) {
     return this.catsRepository.remove(cats);
   }
 }

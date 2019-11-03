@@ -2,7 +2,9 @@ import { Controller, Get, Post, HttpCode, Body, Query, UseInterceptors, Uploaded
 import { ApiBearerAuth, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostDto, GetDto } from './dto/cats.dto';
+import { CatsArg } from './dto/cats.arg';
 import { CatsService } from './cats.service';
+import { injectCats } from './cats.module';
 
 @ApiBearerAuth()
 @Controller('cats')
@@ -11,8 +13,8 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) { // 依赖注入：CatsService，会自动挂载在当前this上
   }
   @Get('hello')
-  async getHello(@Query() getDto: GetDto): Promise<object> {
-    // console.log(getDto);   // curl http://localhost:3000/cats/hello?id=1234  output: { id: '1234' } 类型是object
+  getHello(@Query() getDto: GetDto): injectCats {
+    console.log(getDto);   // curl http://localhost:3000/cats/hello?id=1234  output: { id: '1234' } 类型是object
     // await sleep()
     return this.catsService.getHello();
   }
@@ -28,18 +30,18 @@ export class CatsController {
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
   @ApiImplicitFile({ name: 'file', required: true, description: '上传文件' })
-  UploadedFile(@UploadedFile() file) {
+  UploadedFile(@UploadedFile() file: ArrayBuffer): string {
     console.log(file);  // curl -F 'file=@/Users/dengmingyu/Documents/letcode/static/不同路径.png' -v http://localhost:3000/cats/upload
     return 'Upload file success'
   }
 
   @Get('wrong')
-  wrong () {
+  wrong(): BadRequestException {
     throw new BadRequestException('请求失败')
   }
 
   @Get('find')
-  getCats(@Query() where) {
+  getCats(@Query() where: CatsArg) {
     return this.catsService.getCats(where);
   }
 }

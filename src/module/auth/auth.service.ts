@@ -10,7 +10,7 @@ export class AuthService {
     return this.jwtService.sign(obj);
   }
 
-  valid(token): AuthDto {
+  valid(token: string): AuthDto {
     return this.jwtService.verify(token);
   }
 }

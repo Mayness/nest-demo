@@ -2,16 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserArg } from './dto/user.arg';
+import { CreateUserArg, UpdateUserArg } from './dto/user.arg';
+import { MixinCatsOfUser } from './dto/user.dto';
 import { CatsService } from '../cats/cats.service';
+import { responseMixinCatsOfUser, responseUser } from './user.controller';
 
-type responseUser = Promise<User[]>;
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userRepository: Repository<User|MixinCatsOfUser>,
     private readonly catsService: CatsService
   ) {}
 
@@ -24,14 +25,15 @@ export class UserService {
     user.cats = cats;
     return this.userRepository.save(user)
   }
-  getUser(where = {}): responseUser {
-    return this.userRepository.find({
+
+  getUser(where = {}): responseMixinCatsOfUser {
+    return <Promise<MixinCatsOfUser[]>>(this.userRepository).find({
       where,
       relations: [ 'cats' ]
     });
   }
 
-  async updateUser({ id, name }): Promise<User|{}> {
+  async updateUser({ id, name }: UpdateUserArg): Promise<User|{}> {
     const data = await this.userRepository.find({ id });
     let res = {};
     data.forEach(item => {
@@ -44,9 +46,9 @@ export class UserService {
     return res;
   }
 
-  async deleteUser(id: string): Promise<User|{}> {
+  async deleteUser(id: string): Promise<{}> {
     let res;
-    const data = await this.userRepository.find({
+    const data:MixinCatsOfUser[] = await <Promise<MixinCatsOfUser[]>>(this.userRepository).find({
       where: {
         id,
       },

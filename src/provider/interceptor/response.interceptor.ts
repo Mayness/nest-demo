@@ -19,8 +19,9 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, Response<T>> {
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<Response<T>> {
-    // 修改graphql拦截器导致的错误
     const req = context.switchToHttp().getRequest();
+    // next.handle 为执行原的函数，基于此做AOP操作
+    // graphql请求不能修改输出结构
     return next.handle().pipe(
       map<Response<T>, any>(data => {
         return req ? {

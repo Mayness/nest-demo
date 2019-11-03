@@ -4,7 +4,7 @@ import { UserDto, OperaUserDto } from './dto/user.dto';
 import { UserArg, CreateUserArg, UpdateUserArg } from './dto/user.arg';
 import { UserService } from './user.service';
 
-@Resolver(of => UserDto)
+@Resolver(() => UserDto)
 export class UserResolvers {
   constructor(private readonly userService: UserService) {}
 
