@@ -19,11 +19,11 @@ async function bootstrap() {
 
   // 设置全局校验参数过滤
   app.useGlobalPipes(new ValidationPipe({ validationError: { target: false } }));
-  // 安全策略、禁用客户端缓存、xss字段过滤
+  // 安全策略，禁用客户端缓存，xss字段过滤X-XSS-Protection、
   app.use(helmet());
   // 公共资源的路径
-  app.use('/public', serveStatic(path.join(__dirname, '../public'), {
-    maxAge: '1d'
+  app.use('/public', serveStatic(path.join(process.cwd(), '/public'), {
+    maxAge: '1h'
   }));
   app.listen(3000);
 }
