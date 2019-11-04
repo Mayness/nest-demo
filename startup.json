@@ -1,6 +1,7 @@
 [{
   "name": "nest-demo",
   "script": "dist/main.js",
+  "node_args": "-r ./prod-paths.js",
   "exec_mode": "cluster",
   "instances": 1,
   "merge_logs": true,

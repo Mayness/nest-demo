@@ -9,12 +9,19 @@
     "strict": true,
     "target": "es6",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": ".",
+    "outDir": "dist",
+    "baseUrl": "./src",
     "incremental": true,
     "paths": {
-      "@provider/*": [ "src/provider/*" ]
+      "@decorator/*": [ "provider/decorator/*" ],
+      "@filter/*": [ "provider/filter/*" ],
+      "@guard/*": [ "provider/guard/*" ],
+      "@interceptor/*": [ "provider/interceptor/*" ],
+      "@middleware/*": [ "provider/middleware/*" ],
+      "@pipe/*": [ "provider/pipe/*" ],
+      "@module/*": [ "module/*" ],
+      "@config/*": [ "config/*" ]
     }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["test", "node_modules"]
 }
