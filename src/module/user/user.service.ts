@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserArg, UpdateUserArg } from './dto/user.arg';
 import { MixinCatsOfUser } from './dto/user.dto';
-import { CatsService } from '../cats/cats.service';
+import { CatsService } from '@module/cats/cats.service';
 import { responseMixinCatsOfUser, responseUser } from './user.controller';
 
 

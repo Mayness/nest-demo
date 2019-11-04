@@ -4,7 +4,7 @@ import { UserService } from './user.service';
 import { UserResolvers } from './user.resolvers';
 import { User } from './user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CatsModule } from '../cats/cats.module';
+import { CatsModule } from '@module/cats/cats.module';
 
 @Module({
   imports: [

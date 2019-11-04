@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from 'type-graphql';
-import { Cats } from '../../cats/cats.entity';
+import { Cats } from '@module/cats/cats.entity';
 // result
 @ObjectType()
 export class UserDto {

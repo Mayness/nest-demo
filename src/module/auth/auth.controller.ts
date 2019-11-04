@@ -1,7 +1,7 @@
 import { Controller, Get, Query, UsePipes } from '@nestjs/common';
-import { User } from '../../provider/decorator/User.decorator';
+import { User } from '@decorator/User.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { TransformPipe } from '../../provider/pipe/transform.pipe'
+import { TransformPipe } from '@pipe/transform.pipe';
 
 @ApiBearerAuth()
 @Controller('auth')
