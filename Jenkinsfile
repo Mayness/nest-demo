@@ -23,6 +23,7 @@ pipeline {
                     cnpm -v
                     cnpm i
                     npm run build
+                    npm run doc
                 '''
             }
         }

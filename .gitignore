@@ -38,5 +38,6 @@ dist
 schema.gql
 .packageInfo
 .env
+public/document
 tree.txt
 TODO.md
