@@ -2,9 +2,10 @@ import { Controller, Get, Post, HttpCode, Body, Query, UseInterceptors, Uploaded
 import { ApiBearerAuth, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostDto, GetDto } from './dto/cats.dto';
-import { CatsArg } from './dto/cats.arg';
+import { CatsDto } from './dto/cats.dto';
 import { CatsService } from './cats.service';
 import { injectCats } from './cats.module';
+import { Cats } from './cats.entity';
 
 @ApiBearerAuth()
 @Controller('cats')
@@ -41,7 +42,7 @@ export class CatsController {
   }
 
   @Get('find')
-  getCats(@Query() where: CatsArg) {
+  getCats(@Query() where: CatsDto): Promise<Cats[]> {
     return this.catsService.getCats(where);
   }
 }

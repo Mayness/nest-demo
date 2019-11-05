@@ -8,6 +8,7 @@ export class GetDto {
   // @Length(3, 10, {
   //   message: '字符长度应该在$constraint1-$constraint2之间'
   // })
+  @ApiModelProperty()
   readonly a!: string;
 }
 
@@ -21,4 +22,16 @@ export class PostDto {
   @ApiModelProperty()
   @IsEmail()
   readonly b!: string;
+}
+
+
+export class CatsDto {
+  @ApiModelProperty()
+  readonly id?: string;
+
+  @ApiModelProperty()
+  readonly name?: string;
+
+  @ApiModelProperty()
+  readonly date?: Date;
 }
