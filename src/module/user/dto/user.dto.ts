@@ -1,6 +1,8 @@
 import { Field, ID, ObjectType } from 'type-graphql';
+import { CatsDto } from '@module/cats/dto/cats.dto';
 import { Cats } from '@module/cats/cats.entity';
-// result
+
+// graphql结果
 @ObjectType()
 export class UserDto {
   @Field(type => ID)
@@ -11,6 +13,9 @@ export class UserDto {
 
   @Field({ nullable: true })
   readonly date?: Date;
+
+  @Field(type => [ CatsDto ], { nullable: true })
+  readonly cats?: CatsDto[];
 }
 
 @ObjectType()
@@ -29,5 +34,5 @@ export class MixinCatsOfUser {
   readonly id!: string;
   name!: string;
   readonly date!: Date;
-  readonly cats?: Cats;
+  readonly cats?: Cats[];
 }

@@ -1,10 +1,10 @@
 import { Controller, Get, Post, HttpCode, Body, Query, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
 import { ApiBearerAuth, ApiConsumes, ApiImplicitFile } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { PostDto, GetDto } from './dto/cats.dto';
-import { CatsArg } from './dto/cats.arg';
+import { PostArg, GetArg, CatsArg } from './dto/cats.arg';
 import { CatsService } from './cats.service';
 import { injectCats } from './cats.module';
+import { Cats } from './cats.entity';
 
 @ApiBearerAuth()
 @Controller('cats')
@@ -13,7 +13,7 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) { // 依赖注入：CatsService，会自动挂载在当前this上
   }
   @Get('hello')
-  getHello(@Query() getDto: GetDto): injectCats {
+  getHello(@Query() getDto: GetArg): injectCats {
     console.log(getDto);   // curl http://localhost:3000/cats/hello?id=1234  output: { id: '1234' } 类型是object
     // await sleep()
     return this.catsService.getHello();
@@ -21,7 +21,7 @@ export class CatsController {
 
   @Post('hello')
   @HttpCode(200)
-  getPost(@Body() postDto: PostDto): string {
+  getPost(@Body() postDto: PostArg): string {
     // console.log(postDto);  // curl -X POST -d 'c=3&a=2' http://localhost:3000/cats/hello      output: { c: '3', a: '2' } 类型是object
     return 'Post request success';
   }
@@ -41,7 +41,7 @@ export class CatsController {
   }
 
   @Get('find')
-  getCats(@Query() where: CatsArg) {
+  getCats(@Query() where: CatsArg): Promise<Cats[]> {
     return this.catsService.getCats(where);
   }
 }

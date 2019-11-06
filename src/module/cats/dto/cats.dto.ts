@@ -1,24 +1,16 @@
-import { Length, IsEmail } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { Field, ID, ObjectType } from 'type-graphql';
+import { UserDto } from '@module/user/dto/user.dto'
+@ObjectType()
+export class CatsDto {
+  @Field(type => ID, { nullable: true })
+  readonly id?: string;
 
-export class GetDto {
-  // @ApiModelProperty({
-  //   required: true,
-  // })
-  // @Length(3, 10, {
-  //   message: '字符长度应该在$constraint1-$constraint2之间'
-  // })
-  readonly a!: string;
-}
+  @Field({ nullable: true })
+  readonly name?: string;
 
-export class PostDto {
-  @ApiModelProperty()
-  @Length(3, 10, {
-    message: '字符长度应该在$constraint1-$constraint2之间'
-  })
-  readonly a!: string;
+  @Field({ nullable: true })
+  readonly date?: Date;
 
-  @ApiModelProperty()
-  @IsEmail()
-  readonly b!: string;
+  @Field(type => UserDto, { nullable: true })
+  owner?: UserDto;
 }

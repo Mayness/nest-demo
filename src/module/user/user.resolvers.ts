@@ -1,4 +1,4 @@
-import { Query, Resolver, Args, Info, Mutation } from '@nestjs/graphql';
+import { Query, Resolver, Args, Mutation } from '@nestjs/graphql';
 import { ID } from 'type-graphql';
 import { UserDto, OperaUserDto } from './dto/user.dto';
 import { UserArg, CreateUserArg, UpdateUserArg } from './dto/user.arg';
@@ -8,7 +8,7 @@ import { UserService } from './user.service';
 export class UserResolvers {
   constructor(private readonly userService: UserService) {}
 
-  @Query(returns => [UserDto])
+  @Query(returns => [ UserDto ])
   find(@Args() where: UserArg): Promise<UserDto[]> {
     return this.userService.getUser(where);
   }

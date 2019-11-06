@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cats } from './cats.entity';
+import { CatsArg } from './dto/cats.arg';
 import { injectCats } from './cats.module';
 import { Repository } from 'typeorm';
 
@@ -20,7 +21,7 @@ export class CatsService {
     return this.cats;
   }
 
-  getCats(where = {}) {
+  getCats(where:CatsArg = {}): Promise<Cats[]> {
     return this.catsRepository.find({
       where,
       relations: [ 'owner' ]
@@ -38,7 +39,7 @@ export class CatsService {
     return catsRepList;
   }
 
-  async removeCatsByEntity (cats: Cats) {
+  async removeCatsByEntity (cats: Cats[]) {
     return this.catsRepository.remove(cats);
   }
 }
