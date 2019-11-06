@@ -1,10 +1,8 @@
 import { Controller, Get, Post, Param, Put, Delete, Query, Body, NotFoundException } from '@nestjs/common';
 import { UserArg, CreateUserArg, UpdateUserArg } from './dto/user.arg';
 import { MixinCatsOfUser } from './dto/user.dto';
-import { User } from './user.entity';
 import { UserService } from './user.service';
 
-export type responseUser = Promise<User[]>;
 export type responseMixinCatsOfUser = Promise<MixinCatsOfUser[]>;
 
 @Controller('user')
@@ -25,18 +23,21 @@ export class UserController {
   }
 
   @Post('create') 
-  create(@Body() Params: CreateUserArg): Promise<User> {
-    return this.userService.createUser(Params);
+  async create(@Body() Params: CreateUserArg): Promise<void> {
+    await this.userService.createUser(Params);
   }
 
   @Put('update')
-  update(@Body() { id, name }: UpdateUserArg): Promise<User|{}> {
-    return this.userService.updateUser({ id, name });
+  async update(@Body() { id, name }: UpdateUserArg): Promise<void> {
+    await this.userService.updateUser({ id, name });
   }
 
   @Delete('delete')
-  async delete(@Body('id') id: string) {
-    await this.userService.deleteUser(id);
-    return '删除成功'
+  async delete(@Body('id') id: string): Promise<string|void> {
+    const data = await this.userService.deleteUser(id);
+    console.log(data);
+    if (!Object.keys(data).length) {
+      return '删除失败';
+    }
   }
 }

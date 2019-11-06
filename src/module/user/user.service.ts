@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserArg, UpdateUserArg } from './dto/user.arg';
 import { MixinCatsOfUser } from './dto/user.dto';
 import { CatsService } from '@module/cats/cats.service';
-import { responseMixinCatsOfUser, responseUser } from './user.controller';
+import { responseMixinCatsOfUser } from './user.controller';
 
 
 @Injectable()
@@ -46,7 +46,7 @@ export class UserService {
     return res;
   }
 
-  async deleteUser(id: string): Promise<{}> {
+  async deleteUser(id: string): Promise<MixinCatsOfUser|{}> {
     let res;
     const data:MixinCatsOfUser[] = await <Promise<MixinCatsOfUser[]>>(this.userRepository).find({
       where: {

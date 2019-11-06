@@ -1,6 +1,7 @@
 import { Length, IsOptional, IsArray, IsNotEmpty } from 'class-validator';
 import { ArgsType, Field, ID } from 'type-graphql';
-// arguments
+
+// result
 @ArgsType()
 export class UserArg {
   @IsOptional()
@@ -13,6 +14,7 @@ export class UserArg {
   })
   @Field({ nullable: true })
   readonly name?: string;
+
 }
 
 
