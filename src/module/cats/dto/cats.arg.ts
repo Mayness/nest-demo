@@ -1,7 +1,6 @@
 import { Length, IsEmail } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Field, ObjectType } from 'type-graphql';
-import { UserDto } from '@module/user/dto/user.dto'
 export class GetArg {
   // @ApiModelProperty({
   //   required: true,
