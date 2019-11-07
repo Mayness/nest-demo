@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate{ // 实现CanActive接口
     context: ExecutionContext,
   ): boolean {
     // TEST:
-    return true
+    // return true
     const role = this.reflector.get<string>('roles', context.getHandler());
     if (role === 'all') return true;
     // let path;
