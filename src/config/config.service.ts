@@ -28,7 +28,7 @@ export class ConfigService {
       env = env[item] || {};
       defaults = defaults[item];
     }
-    return (env && typeof env !== 'object') || Object.keys(env).length
+    return (typeof env !== 'object') || Object.keys(env).length
       ? env
       : defaults;
   }
